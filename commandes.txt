@@ -1,0 +1,3 @@
+#run the project
+npx nodemon index.js
+
