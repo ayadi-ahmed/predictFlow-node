@@ -7,7 +7,8 @@ const UserSchema = new Schema(
         name: String,
         email: String,
         password: String,
-        phoneNumber: String,
+        phoneNumber: Number,
+        role:String,
         articles: [
             { type: Schema.Types.ObjectId, ref: 'artilce' }
         ],

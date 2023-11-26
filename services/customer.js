@@ -35,9 +35,9 @@ module.exports = class CustomerService {
         if (!client.name || !client.email || !client.password) {
             throw new ApiError("Invalid client details", 400)
         }
-        if (!client.companyId) {
+        /* if (!client.companyId) {
             throw new ApiError("Company id is required")
-        }
+        } */
         const new_client = await this.repository.create(client);
         return new_client;
     }

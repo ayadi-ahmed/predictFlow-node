@@ -8,7 +8,8 @@ const {
     UserController,
     CategoryController,
     SupplierController,
-    CompanyOrderController
+    CompanyOrderController,
+    PredictionController
 } = require("./controller");
 const cors = require("cors");
 require("./db/connect")
@@ -23,10 +24,11 @@ CategoryController(app);
 SupplierController(app);
 CompanyOrderController(app);
 UserController(app); 
+PredictionController(app); 
 
-app.listen(3001, () => {
+app.listen(3000, () => {
     console.clear();
-    console.log("clients app listening on port 3001")
+    console.log("PredictStock app listening on port 3000")
 })
 
 

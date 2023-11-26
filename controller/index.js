@@ -7,4 +7,5 @@ module.exports = {
     SupplierController: require("./supplier"),
     CompanyOrderController: require("./companyOrder"),
     UserController: require("./user"),
+    PredictionController: require("./prediction"),
 }

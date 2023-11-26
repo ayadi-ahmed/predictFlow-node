@@ -20,9 +20,9 @@ module.exports = class CategoryService {
         if (!category.name) {
             throw new ApiError("Invalid category name", 400)
         }
-        if (!category.companyId) {
+/*         if (!category.companyId) {
             throw new ApiError("Invalid company ID", 400)
-        }
+        } */
         const new_category = await this.repository.create(category);
         return new_category;
     }

@@ -1,12 +1,14 @@
 const { CompanyOrderService } = require("../services");
 const errorHandler = require("./error-handler");
 cosnt = require("./error-handler")
+const verifyToken = require("../config/TokenConfig");
+
 
 module.exports = (app) => {
 
     const service = new CompanyOrderService();
 
-    app.get("/company-order", async (req, res, next) => {
+    app.get("/company-order",verifyToken, async (req, res, next) => {
         try {
             const orders = await service.findAll();
             res.status(200).send({ message: "Orders retreived successfully", data: orders })
@@ -15,7 +17,7 @@ module.exports = (app) => {
         }
     })
 
-    app.get("/company-order/user/:id", async (req, res, next) => {
+    app.get("/company-order/user/:id",verifyToken, async (req, res, next) => {
         try {
             const orders = await service.findAllByUserId(req.params.id);
             res.status(200).send({ message: "Orders retreived successfully", data: orders })
@@ -24,7 +26,7 @@ module.exports = (app) => {
         }
     })
 
-    app.get("/company-order/number/user/:id", async (req, res, next) => {
+    app.get("/company-order/number/user/:id",verifyToken, async (req, res, next) => {
         try {
             const orders = await service.findOrderNumbersByUserId(req.params.id);
             res.status(200).send({ message: "Orders number retreived successfully", data: orders })
@@ -33,7 +35,7 @@ module.exports = (app) => {
         }
     })
 
-    app.get("/company-order/:id", async (req, res, next) => {
+    app.get("/company-order/:id",verifyToken, async (req, res, next) => {
         try {
             const order = await service.findById(req.params.id);
             res.status(200).send({ message: "Orders retreived successfully", data: order })
@@ -44,7 +46,7 @@ module.exports = (app) => {
 
 
 
-    app.post("/company-order", async (req, res, next) => {
+    app.post("/company-order",verifyToken, async (req, res, next) => {
         try {
             const orders = await service.create(req.body);
             res.status(200).send({ message: "Orders created successfully", data: orders })
@@ -53,7 +55,7 @@ module.exports = (app) => {
         }
     })
 
-    app.delete("/company-order/:id", async (req, res, next) => {
+    app.delete("/company-order/:id",verifyToken, async (req, res, next) => {
         const id = req.params.id;
         try {
             const response = await service.deleteById(id);

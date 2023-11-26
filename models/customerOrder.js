@@ -6,6 +6,7 @@ const CustomerOrderSchema = new Schema(
     {
         date: { type: String, default: Date.now() },
         total: { type: Number, default: 0.0 },
+        customerId:String,
         items: [
             {
                 quantity: Number,
@@ -25,7 +26,6 @@ const CustomerOrderSchema = new Schema(
 
 CustomerOrderSchema.methods.toJSON = function () {
     var obj = this.toObject();
-    delete obj.password;
     delete obj.createdAt
     delete obj.updatedAt
     delete obj.__v

@@ -1,12 +1,14 @@
 const { ActivityService } = require("../services");
 const errorHandler = require("./error-handler");
 cosnt = require("./error-handler")
+const verifyToken = require("../config/TokenConfig");
+
 
 module.exports = (app) => {
 
     const service = new ActivityService();
 
-    app.get("/activity", async (req, res, next) => {
+    app.get("/activity",verifyToken, async (req, res, next) => {
         try {
             const activities = await service.findAll();
             res.status(200).send({ message: "Activities retreived successfully", data: activities })
@@ -15,7 +17,7 @@ module.exports = (app) => {
         }
     })
 
-    app.get("/activity/:id", async (req, res, next) => {
+    app.get("/activity/:id",verifyToken, async (req, res, next) => {
         try {
             const activity = await service.findById(req.params.id);
             res.status(200).send({ message: "Activity retreived successfully", data: activity })
@@ -24,7 +26,7 @@ module.exports = (app) => {
         }
     })
 
-    app.post("/activity", async (req, res, next) => {
+    app.post("/activity",verifyToken, async (req, res, next) => {
         try {
             const activity = await service.create(req.body);
             res.status(200).send({ message: "Activity created successfully", data: activity })
@@ -33,7 +35,7 @@ module.exports = (app) => {
         }
     })
 
-    app.delete("/activity/:id", async (req, res, next) => {
+    app.delete("/activity/:id",verifyToken, async (req, res, next) => {
         try {
             const activity = await service.deleteById(req.params.id);
             res.status(200).send({ message: "Activity deleted successfully", data: activity })

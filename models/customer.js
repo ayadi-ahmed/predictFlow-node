@@ -13,7 +13,7 @@ const CustomerSchema = new Schema(
         orders: [
             { type: Schema.Types.ObjectId, ref: 'customerOrder' }
         ],
-        companyId: String
+        //companyId: String
     },
     {
         timestamps: true

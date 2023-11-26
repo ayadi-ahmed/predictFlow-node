@@ -1,12 +1,14 @@
 const { SupplierService } = require("../services");
 const errorHandler = require("./error-handler");
 cosnt = require("./error-handler")
+const verifyToken = require("../config/TokenConfig");
+
 
 module.exports = (app) => {
 
     const service = new SupplierService();
 
-    app.get("/supplier", async (req, res, next) => {
+    app.get("/supplier",verifyToken, async (req, res, next) => {
         try {
             const suppliers = await service.findAll();
             res.status(200).send({ message: "Suppliers retreived successfully", data: suppliers })
@@ -16,7 +18,7 @@ module.exports = (app) => {
     })
 
 
-    app.get("/supplier/:id", async (req, res, next) => {
+    app.get("/supplier/:id",verifyToken, async (req, res, next) => {
         try {
             const supplier = await service.findById(req.params.id);
             res.status(200).send({ message: "Supplier retreived successfully", data: supplier })
@@ -27,7 +29,7 @@ module.exports = (app) => {
 
 
 
-    app.post("/supplier", async (req, res, next) => {
+    app.post("/supplier",verifyToken, async (req, res, next) => {
         try {
             const supplier = await service.create(req.body);
             res.status(200).send({ message: "Supplier created successfully", data: supplier })
@@ -37,7 +39,7 @@ module.exports = (app) => {
     })
 
     //remove order
-    app.delete("/supplier/order", async (req, res, next) => {
+    app.delete("/supplier/order",verifyToken, async (req, res, next) => {
         const { supplierId, order } = req.body;
         try {
             const response = await service.removeOrder(supplierId, order);
@@ -47,7 +49,7 @@ module.exports = (app) => {
         }
     })
 
-    app.delete("/supplier/:id", async (req, res, next) => {
+    app.delete("/supplier/:id",verifyToken, async (req, res, next) => {
         try {
             const supplier = await service.deleteById(req.params.id);
             res.status(200).send({ message: "Supplier deleted successfully", data: supplier })
@@ -57,7 +59,7 @@ module.exports = (app) => {
     })
 
     //find orders
-    app.get("/supplier/:id/orders", async (req, res, next) => {
+    app.get("/supplier/:id/orders",verifyToken, async (req, res, next) => {
         const id = req.params.id;
         try {
             const orders = await service.findOrdersBySupplier(id);
@@ -68,7 +70,7 @@ module.exports = (app) => {
     })
 
     //add order
-    app.post("/supplier/order", async (req, res, next) => {
+    app.post("/supplier/order",verifyToken, async (req, res, next) => {
         const { supplierId, order } = req.body;
         console.log(req.body)
         try {
